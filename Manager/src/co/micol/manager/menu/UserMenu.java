@@ -1,4 +1,4 @@
-package co.micol.manager;
+package co.micol.manager.menu;
 
 import java.util.ArrayList;
 import java.util.List;

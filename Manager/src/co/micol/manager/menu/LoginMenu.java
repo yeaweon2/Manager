@@ -2,7 +2,6 @@ package co.micol.manager.menu;
 
 import java.util.Scanner;
 
-import co.micol.manager.UserMenu;
 import co.micol.manager.member.service.MemberService;
 import co.micol.manager.member.serviceImpl.MemberServiceImpl;
 import co.micol.manager.member.vo.MemberVO;
