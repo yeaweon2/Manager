@@ -83,23 +83,54 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int boardInsert(BoardVO vo) {
 		// TODO 게시글 추가
-		String sql = "";
-		return 0;
+		String sql = "INSERT INTO BOARD ( BOARDID, WRITER , TITLE, SUBJECT ) VALUES ( ?,?,?,? ) ";
+		int n = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getBoardId());
+			psmt.setString(2, vo.getWriter());
+			psmt.setString(3, vo.getTitle());
+			psmt.setString(4, vo.getSubject());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n;
 	}
 
 	@Override
 	public int boardUpdate(BoardVO vo) {
 		// TODO 게시글 수정
-		String sql = "";
-		return 0;
+		String sql = "UPDATE BOARD SET TITLE = ? , SUBJECT = ? WHERE BOARDID = ?";
+		
+		int n = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getTitle());
+			psmt.setString(2, vo.getSubject());
+			psmt.setString(3, vo.getBoardId());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n;
 	}
 
 	@Override
 	public int boardDelete(BoardVO vo) {
 		// TODO 게시글 삭제
 		String sql = "DELETE FROM BOARD WHERE BOARDID = ?";
-		return 0;
+		int n = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getBoardId());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n;
 	}
-
-
 }

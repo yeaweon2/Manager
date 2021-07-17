@@ -24,7 +24,7 @@ public class LoginMenu {
 		MemberVO vo = new MemberVO();
 		boolean b = false;
 		int loginCount = 1;
-		do {
+		do { 
 			loginTitle();
 			System.out.print("ID입력 >> ");
 			vo.setId(scn.nextLine());

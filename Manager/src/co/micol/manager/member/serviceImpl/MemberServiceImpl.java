@@ -76,6 +76,7 @@ public class MemberServiceImpl implements MemberService {
 			psmt.setString(2, vo.getPassword());
 			rs = psmt.executeQuery();
 			if(rs.next()) {
+				vo.setId(rs.getString("id"));
 				vo.setName(rs.getString("name"));
 				vo.setAuthor(rs.getString("author"));
 			}
@@ -88,21 +89,59 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memberInsert(MemberVO vo) {
 		// TODO 회원 추가
-		String sql = "";
-		return 0;
+		String sql = "INSERT INTO MEMBER (ID, PASSWORD, NAME, ADDRESS, TEL, AGE ) VALUES (?,?,?,?,?,?)";
+		int n = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getId());
+			psmt.setString(2, vo.getPassword());
+			psmt.setString(3, vo.getName());
+			psmt.setString(4, vo.getAddress());
+			psmt.setString(5, vo.getTel());
+			psmt.setInt(6, vo.getAge());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n;
 	}
 
 	@Override
 	public int memberUpdate(MemberVO vo) {
-		// TODO 회원 수정 
-		return 0;
+		// TODO 회원 수정
+		String sql = "UPDATE MEMBER SET PASSWORD = ? , NAME = ? , ADDRESS = ? , TEL = ? , AGE = ? WHERE ID = ? ";
+		int n = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getPassword());
+			psmt.setString(2, vo.getName());
+			psmt.setString(3, vo.getAddress());
+			psmt.setString(4, vo.getTel());
+			psmt.setInt(5, vo.getAge());
+			psmt.setString(6, vo.getId());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n;
 	}
 
 	@Override
 	public int memberDelete(MemberVO vo) {
 		// TODO 회원 삭제
 		String sql = "DELETE FROM MEMBER WHERE ID = ?";
-		return 0;
+		int n = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getId());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n;
 	}
 
 }
