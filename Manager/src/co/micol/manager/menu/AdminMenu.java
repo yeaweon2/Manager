@@ -66,8 +66,6 @@ public class AdminMenu {
 		}
 	}
 
-
-
 	private void memberSubMenu(MemberVO vo) {
 		// TODO 1.멤버관리
 		boolean b = false;
@@ -94,7 +92,7 @@ public class AdminMenu {
 		
 		int result = memDao.memberInsert(vo);
 		if(result > 0) {
-			System.out.println("※ [" + vo.getName() + "] 삭제 되었습니다.");
+			System.out.println("※ [" + vo.getName() + "] 입력 되었습니다.");
 		}else {
 			System.out.println("※ 멤버 입력 [ 실 패 ] ");
 		}		
@@ -105,16 +103,13 @@ public class AdminMenu {
 		String adminId = vo.getId();
 		vo.setId(scanString("삭제할 멤버 ID 입력 >> "));
 		
-		if(!adminId.equals(vo.getId())) {
-			int result = memDao.memberDelete(vo);
-			if(result > 0) {
-				System.out.println("※ [" + vo.getId() + "] 삭제 되었습니다.");
-			}else {
-				System.out.println("※ 멤버 삭제 [ 실 패 ] ");
-			}
+		int result = memDao.memberDelete(vo);
+		if(result > 0) {
+			System.out.println("※ [" + vo.getId() + "] 삭제 되었습니다.");
 		}else {
-			System.out.println("※ 관리자 권한입니다. 일단 삭제불가.");
+			System.out.println("※ 멤버 삭제 [ 실 패 ] ");
 		}
+		
 	}
 
 	private void boardUpdate(MemberVO vo) {
@@ -139,7 +134,6 @@ public class AdminMenu {
 		}
 	}
 
-
 	private void boardInsert(MemberVO vo) {
 		// TODO 게시글 추가
 		BoardVO boVo = new BoardVO();
@@ -150,7 +144,7 @@ public class AdminMenu {
 		
 		int result = boDao.boardInsert(boVo);
 		if(result > 0) {
-			System.out.println("※ [" + boVo.getTitle() + "] 추가되었습니다.");
+			System.out.println("※ [" + boVo.getTitle() + "] 추가 되었습니다.");
 		}else {
 			System.out.println("※ 게시글 저장 [ 실 패 ] ");
 		}

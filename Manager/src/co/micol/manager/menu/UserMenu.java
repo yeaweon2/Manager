@@ -84,17 +84,22 @@ public class UserMenu {
 		// TODO 게시글 추가
 		BoardVO boVo = new BoardVO();
 		boVo.setBoardId(scanString("글ID 입력 >> "));
-		boVo.setWriter(vo.getId());
-		boVo.setTitle(scanString("제목 입력 >> "));
-		boVo.setSubject(scanString("내용 입력 >> "));
 		
-		int result = boDao.boardInsert(boVo);
-		if(result > 0) {
-			System.out.println("※ [" + boVo.getTitle() + "] 추가되었습니다.");
+		BoardVO chkVo = boDao.boardDuplChk(boVo);
+		if(chkVo == null) {
+			System.out.println("※ 중복된 글ID가 존재합니다.");
 		}else {
-			System.out.println("※ 저장 [ 실 패 ] ");
+			boVo.setWriter(vo.getId());
+			boVo.setTitle(scanString("제목 입력 >> "));
+			boVo.setSubject(scanString("내용 입력 >> "));
+			
+			int result = boDao.boardInsert(boVo);
+			if(result > 0) {
+				System.out.println("※ [" + boVo.getTitle() + "] 추가되었습니다.");
+			}else {
+				System.out.println("※ 저장 [ 실 패 ] ");
+			}
 		}
-		
 	}
 
 	private void boardList() {

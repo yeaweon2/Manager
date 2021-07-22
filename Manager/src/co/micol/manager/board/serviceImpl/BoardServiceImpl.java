@@ -133,4 +133,26 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return n;
 	}
+	
+	@Override
+	public BoardVO boardDuplChk(BoardVO vo) {
+		// TODO 게시글 상세조회 
+		String sql = "SELECT * FROM BOARD WHERE BOARDID = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getBoardId());
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				vo.setWriter(rs.getString("writer"));
+				vo.setTitle(rs.getString("title"));
+				vo.setSubject(rs.getString("subject"));
+				vo.setEnterDate(rs.getDate("enterdate"));
+				vo.setHit(rs.getInt("hit"));
+			} 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}	
 }
